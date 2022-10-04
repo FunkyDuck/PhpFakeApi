@@ -1,0 +1,32 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "FunkyDuck",
+            "password": "password"
+        }
+    ],
+    "category": [
+        {
+            "id": 1,
+            "name": "VideoGame"
+        },
+        {
+            "id": 2,
+            "name": "Books"
+        },
+        {
+            "id": 3,
+            "name": "WebDev"
+        }
+    ],
+    "posts": [
+        {
+            "id": 1,
+            "title": "Fake API",
+            "category": 3,
+            "date": "01/10/2022",
+            "content": "Today, I have developped a small Fake API in PHP."
+        }
+    ]
+}
