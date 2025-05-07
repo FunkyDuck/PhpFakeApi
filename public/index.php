@@ -1,6 +1,6 @@
 <?php
     ini_set('display_errors','0');
-    require("lib_db.php");
+    require_once("../libraries/lib_db.php");
     use Database\JsonDb as Db;
 
     $db = new Db();
