@@ -1,31 +1,47 @@
 <?php
-    ini_set('display_errors','0');
-    require_once("../libraries/lib_db.php");
-    use Database\JsonDb as Db;
+ini_set('display_errors','0');
 
-    $db = new Db();
+require_once __DIR__ . "/../src/libraries/lib_db.php";
+require_once __DIR__ . "/../src/Constants.php";
 
-    $requestMethod=($_SERVER["REQUEST_METHOD"])? $_SERVER["REQUEST_METHOD"] : 'GET';
-    $urlPart = @explode('/',@$_SERVER['REDIRECT_URL']);
-    $path = (strlen(end($urlPart))!=0)?end($urlPart):$urlPart[count($urlPart)-2];
+use Database\JsonDb as Db;
+use App\Constants;
 
-    $ret = array();
+error_log("PHP Fake API version " . Constants::VERSION . "\nCreated by Ginji@FunkyDuck.");
 
-    switch ($requestMethod) {
-        case 'GET':
-            $ret = (@$path)?$db->readBy($path, @$_GET):$db->readAll();
-            break;
+header('Content-Type: application/json');
+    
+$method = $_SERVER["REQUEST_METHOD"];
+$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");
+$segments = explode("/", $uri);
 
-        case 'POST':
-            $p = JSON_DECODE(file_get_contents("php://input"), true);
-            if($p==null)
-                $p=$_POST;
-            $ret = (@$path && @$p && @$p['login'])?$db->login($path,@$p):((@$path && @$p)?$db->insert($path, @$p):['error'=>'Missing data...','data'=>$p]);
-            break;
+$db = new Db();
 
-        default:
-            $ret = ['error'=>'Unknow Error...'];
-            break;
-    }
+if(empty($segments[0])) {
+    http_response_code(400);
+    echo json_encode(["error" => "No path specified"]);
+    exit;
+}
 
-    echo json_encode($ret);
+switch($method) {
+    case "GET":
+        $db->handleGet($segments);
+        break;
+
+    case "POST":
+        $db->handlePost($segments);
+        break;
+
+    case "PUT":
+        $db->handlePut($segments);
+        break;
+
+    case "DELETE":
+        $db->handleDelete($segments);
+        break;
+
+    default:
+        http_response_code(405);
+        echo json_encode(["error" => "Method not allowed"]);
+        break;
+}
