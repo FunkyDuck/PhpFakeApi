@@ -99,13 +99,68 @@ class JsonDb {
         $data[$collection][] = $input;
         $this->data = $data;
 
-        file_put_contents(this->file, json_encode($data, JSON_PRETTY_PRINT));
+        file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
 
         http_response_code(201);
         echo json_encode($input, JSON_PRETTY_PRINT);
         return;
     }
 
+    function handlePut(array $segments): void {
+        if(count($segments) !== 1) {
+            http_response_code(400);
+            echo json_encode(["error" => "PUT must target a single collection"], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $collection = $segments[0];
+        $data = $this->data;
+
+        if(!isset($data[$collection])) {
+            http_response_code(404);
+            echo json_encode(["error" => "Collection '{$collection}' not found"], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $rawInput = file_get_contents("php://input");
+        $input = json_decode($rawInput, true);
+
+        if(!is_array($input)) {
+            http_response_code(400);
+            echo json_encode(["error" => "Invalid JSON body"], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        error_log(json_encode($input));
+        $updated = null;
+
+        foreach ($data[$collection] as $idx => $item) {
+            if((int)$item['id'] === (int)$input['id']) {
+                $updated = array_replace($item, $input);
+                $data[$collection][$idx] = $updated;
+                $this->data = $data;
+                file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
+            }
+        }
+
+        http_response_code(201);
+        echo json_encode($updated, JSON_PRETTY_PRINT);
+        return;
+    }
+
+    // // // // // // // // //
+    // // // // // // // // //
+    // // // // // // // // //
+    // // // // // // // // //
+    // // // // // // // // //
+    //
+    // OLD CODE START HERE
+    //
+    // // // // // // // // //
+    // // // // // // // // //
+    // // // // // // // // //
+    // // // // // // // // //
+    // // // // // // // // //
     function login($c, $s=array()){
         $data=file_get_contents($this->fn);
 

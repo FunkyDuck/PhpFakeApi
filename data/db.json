@@ -4,22 +4,43 @@
             "id": 1,
             "username": "FunkyDuck",
             "favorite_console": "Super Nintendo",
-            "languages": ["PHP", "JavaScript", "Java"],
-            "profile": "I may live in the future, but my heart's stuck in the '90s with my SNES. Retrogaming isn’t a hobby — it’s a time machine, and I’ve got the controller.",
+            "languages": [
+                "PHP",
+                "JavaScript",
+                "Java"
+            ],
+            "profile": "I may live in the future, but my heart's stuck in the '90s with my SNES. Retrogaming isn\u2019t a hobby \u2014 it\u2019s a time machine, and I\u2019ve got the controller.",
             "age": 34,
-            "favorite_games": ["Super Metroid", "Chrono Trigger"],
-            "hobbies": ["Retrogaming", "Synthwave music", "Pixel art"],
+            "favorite_games": [
+                "Super Metroid",
+                "Chrono Trigger"
+            ],
+            "hobbies": [
+                "Retrogaming",
+                "Synthwave music",
+                "Pixel art"
+            ],
             "favorite_food": "Spaghetti bolognaise"
         },
         {
             "id": 2,
-            "username": "Loïc",
+            "username": "Lo\u00efc",
             "favorite_console": "PlayStation 2",
-            "languages": ["Python", "TypeScript"],
-            "profile": "Full of ideas and always up for a challenge, Loïc codes like he’s playing a boss fight: calm, focused, and with the right soundtrack.",
+            "languages": [
+                "Python",
+                "TypeScript"
+            ],
+            "profile": "Full of ideas and always up for a challenge, Lo\u00efc codes like he\u2019s playing a boss fight: calm, focused, and with the right soundtrack.",
             "age": 36,
-            "favorite_games": ["Shadow of the Colossus", "Guitar Hero"],
-            "hobbies": ["Coding challenges", "Indie rock", "Escape games"],
+            "favorite_games": [
+                "Shadow of the Colossus",
+                "Guitar Hero"
+            ],
+            "hobbies": [
+                "Coding challenges",
+                "Indie rock",
+                "Escape games"
+            ],
             "favorite_food": "Ramen"
         },
         {
@@ -29,41 +50,78 @@
             "languages": [],
             "profile": "Always on the go, Ginji is the kind of player who finishes a Zelda dungeon between two train stops. Quiet, fast, and pixel-perfect.",
             "age": 26,
-            "favorite_games": ["The Legend of Zelda: Link's Awakening", "Tetris"],
-            "hobbies": ["Train travel", "Retro collecting", "Photography"],
+            "favorite_games": [
+                "The Legend of Zelda: Link's Awakening",
+                "Tetris"
+            ],
+            "hobbies": [
+                "Train travel",
+                "Retro collecting",
+                "Photography"
+            ],
             "favorite_food": "Takoyaki"
         },
         {
             "id": 4,
             "username": "Yuna",
             "favorite_console": "Nintendo Switch",
-            "languages": ["C#", "Python"],
-            "profile": "Yuna blends creativity and logic like a perfect potion. From RPGs to UI design, she’s got mana to spare.",
+            "languages": [
+                "C#",
+                "Python"
+            ],
+            "profile": "Yuna blends creativity and logic like a perfect potion. From RPGs to UI design, she\u2019s got mana to spare.",
             "age": 24,
-            "favorite_games": ["Fire Emblem: Three Houses", "Stardew Valley"],
-            "hobbies": ["Drawing", "UI/UX Design", "Cosplay"],
+            "favorite_games": [
+                "Fire Emblem: Three Houses",
+                "Stardew Valley"
+            ],
+            "hobbies": [
+                "Drawing",
+                "UI\/UX Design",
+                "Cosplay"
+            ],
             "favorite_food": "Sushi"
         },
         {
             "id": 5,
             "username": "Axel",
             "favorite_console": "Xbox 360",
-            "languages": ["Go", "Rust"],
-            "profile": "Axel codes like he plays shooters — headshots only. Precision, performance, and no room for lag.",
+            "languages": [
+                "Go",
+                "Rust"
+            ],
+            "profile": "Axel codes like he plays shooters \u2014 headshots only. Precision, performance, and no room for lag.",
             "age": 31,
-            "favorite_games": ["Halo 3", "Dark Souls"],
-            "hobbies": ["Speedrunning", "Mountain biking", "Tech podcasts"],
+            "favorite_games": [
+                "Halo 3",
+                "Dark Souls"
+            ],
+            "hobbies": [
+                "Speedrunning",
+                "Mountain biking",
+                "Tech podcasts"
+            ],
             "favorite_food": "Burger maison"
         },
         {
             "id": 6,
             "username": "Mira",
             "favorite_console": "Dreamcast",
-            "languages": ["Ruby", "JavaScript"],
+            "languages": [
+                "Ruby",
+                "JavaScript"
+            ],
             "profile": "Always a step ahead, Mira sees the code and the fun in everything. Dreamcast fan and dream-team player.",
             "age": 28,
-            "favorite_games": ["Jet Set Radio", "Skies of Arcadia"],
-            "hobbies": ["Skating", "Indie game dev", "DJing"],
+            "favorite_games": [
+                "Jet Set Radio",
+                "Skies of Arcadia"
+            ],
+            "hobbies": [
+                "Skating",
+                "Indie game dev",
+                "DJing"
+            ],
             "favorite_food": "Curry japonais"
         }
     ],
@@ -79,43 +137,75 @@
         {
             "id": 3,
             "name": "WebDev"
+        },
+        {
+            "name": "Lego Set",
+            "id": 4
         }
     ],
     "posts": [
         {
-          "id": 1,
-          "title": "Fake API",
-          "category": 3,
-          "date": "01/10/2022",
-          "content": "Today, I have developped a small Fake API in PHP."
+            "id": 1,
+            "title": "Fake API",
+            "category": 3,
+            "date": "01\/10\/2022",
+            "content": "Today, I have developped a small Fake API in PHP."
         },
         {
-          "id": 2,
-          "title": "Retrogaming",
-          "category": 1,
-          "date": "07/05/2025",
-          "content": "I may live in the future, but my heart's stuck in the '90s with my SNES.\nNothing beats the thrill of pixelated adventures, chiptune music, and yelling at Mode 7 graphics.\nRetrogaming isn’t a hobby — it’s a time machine, and I’ve got the controller."
+            "id": 2,
+            "title": "Retrogaming",
+            "category": 1,
+            "date": "07\/05\/2025",
+            "content": "I may live in the future, but my heart's stuck in the '90s with my SNES.\nNothing beats the thrill of pixelated adventures, chiptune music, and yelling at Mode 7 graphics.\nRetrogaming isn\u2019t a hobby \u2014 it\u2019s a time machine, and I\u2019ve got the controller."
         },
         {
-          "id": 3,
-          "title": "Duck Hunt Devlog",
-          "category": 3,
-          "date": "03/05/2025",
-          "content": "Trying to recreate Duck Hunt in JS — turns out, making a dog laugh at you is harder than expected. Still worth it!"
+            "id": 3,
+            "title": "Duck Hunt Devlog",
+            "category": 3,
+            "date": "03\/05\/2025",
+            "content": "Trying to recreate Duck Hunt in JS \u2014 turns out, making a dog laugh at you is harder than expected. Still worth it!"
         },
         {
-          "id": 4,
-          "title": "The Book That Made Me Code",
-          "category": 2,
-          "date": "15/04/2023",
-          "content": "Reading 'Clean Code' was like switching from a wooden sword to the Master Sword. Suddenly, bugs started fearing me."
+            "id": 4,
+            "title": "The Book That Made Me Code",
+            "category": 2,
+            "date": "15\/04\/2023",
+            "content": "Reading 'Clean Code' was like switching from a wooden sword to the Master Sword. Suddenly, bugs started fearing me."
         },
         {
-          "id": 5,
-          "title": "When GB Pixels Hit Different",
-          "category": 1,
-          "date": "22/03/2024",
-          "content": "There’s something magical about a grayscale Zelda on Game Boy. Low-res visuals, high-res nostalgia."
+            "id": 5,
+            "title": "When GB Pixels Hit Different",
+            "category": 1,
+            "date": "22\/03\/2024",
+            "content": "There\u2019s something magical about a grayscale Zelda on Game Boy. Low-res visuals, high-res nostalgia."
+        },
+        {
+            "title": "Concorde [10318]",
+            "category": "4",
+            "date": "25\/04\/2025",
+            "content": "Mont\u00e9 aujourd\u2019hui : le Concorde LEGO, un superbe mod\u00e8le long et \u00e9l\u00e9gant avec train d\u2019atterrissage fonctionnel et gouvernes mobiles.",
+            "id": 6
+        },
+        {
+            "title": "Ariane 5 [10341]",
+            "category": "4",
+            "date": "3\/05\/2025",
+            "content": "Une fus\u00e9e europ\u00e9enne fid\u00e8le \u00e0 l\u2019originale ! Ariane 5, avec son pas de tir et ses boosters d\u00e9tachables, est un excellent ajout \u00e0 ma collection spatiale.",
+            "id": 7
+        },
+        {
+            "title": "Saturn V [92176]",
+            "category": "4",
+            "date": "15\/05\/2025",
+            "content": "Le set Saturn V est tout simplement immense et impressionnant. Trois \u00e9tages s\u00e9parables et la capsule Apollo au sommet : un must pour les fans de la NASA.",
+            "id": 8
+        },
+        {
+            "title": "LEGO Icons NASA Mars Rover Perseverance [42158]",
+            "category": "4",
+            "date": "12\/03\/2025",
+            "content": "Un mod\u00e8le tr\u00e8s d\u00e9taill\u00e9 du rover Perseverance, avec suspension fonctionnelle et bras articul\u00e9. Parfait pour les fans d\u2019exploration spatiale moderne.",
+            "id": "9"
         }
     ]
 }
