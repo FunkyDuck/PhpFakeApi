@@ -145,13 +145,6 @@
     ],
     "posts": [
         {
-            "id": 1,
-            "title": "Fake API",
-            "category": 3,
-            "date": "01\/10\/2022",
-            "content": "Today, I have developped a small Fake API in PHP."
-        },
-        {
             "id": 2,
             "title": "Retrogaming",
             "category": 1,

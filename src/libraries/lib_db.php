@@ -143,8 +143,7 @@ class JsonDb {
             }
         }
 
-        http_response_code(201);
-        echo json_encode($updated, JSON_PRETTY_PRINT);
+        http_response_code(204);
         return;
     }
 
@@ -185,8 +184,7 @@ class JsonDb {
             file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
         }
 
-        http_response_code(201);
-        echo json_encode([$item, 'message' => 'Was deleted'], JSON_PRETTY_PRINT);
+        http_response_code(204);
         return;
     }
 
@@ -244,37 +242,5 @@ class JsonDb {
 
         file_put_contents($this->fn, json_encode($newData), LOCK_EX);
         return ['error'=>'Insert successfull','data'=>$s];
-    }
-
-    function readAll(){
-        $data = file_get_contents($this->fn);
-        return json_decode($data);
-    }
-
-    function readBy($c, $s = array(),$login=false){
-        $data = file_get_contents($this->fn);
-        $keys = array_keys($s);
-        $ret = [];
-        foreach (json_decode($data) as $k => $v) {
-            if($k==$c){
-                if(@$keys[0]){
-                    for ($i=0; $i <count($v) ; $i++) {
-                        foreach ($v[$i] as $key => $value) {
-                            if($keys[0]==$key && $s[$keys[0]]==$value && $login){
-                                $ret = $v[$i];
-                                break;
-                            }else if($keys[0]==$key && $s[$keys[0]]==$value){
-                                unset($v[$i]->password);
-                                array_push($ret, $v[$i]);
-                                break;
-                            }
-                        }
-                    }
-                }else{
-                    $ret = $v;
-                }
-            }
-        }
-        return $ret;
     }
 }
