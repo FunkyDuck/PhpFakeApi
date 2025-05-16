@@ -166,13 +166,6 @@
             "content": "Trying to recreate Duck Hunt in JS \u2014 turns out, making a dog laugh at you is harder than expected. Still worth it!"
         },
         {
-            "id": 4,
-            "title": "The Book That Made Me Code",
-            "category": 2,
-            "date": "15\/04\/2023",
-            "content": "Reading 'Clean Code' was like switching from a wooden sword to the Master Sword. Suddenly, bugs started fearing me."
-        },
-        {
             "id": 5,
             "title": "When GB Pixels Hit Different",
             "category": 1,

@@ -54,7 +54,7 @@ class JsonDb {
 
             if(!$hasKey) {
                 http_response_code(400);
-                echo json_encode(["error", "Key '{$key}' not found in any item of collection '${segments[0]}'"], JSON_PRETTY_PRINT);
+                echo json_encode(["error", "Key '{$key}' not found in any item of collection '{$segments[0]}'"], JSON_PRETTY_PRINT);
                 return;
             }
             
@@ -145,6 +145,48 @@ class JsonDb {
 
         http_response_code(201);
         echo json_encode($updated, JSON_PRETTY_PRINT);
+        return;
+    }
+
+    function handleDelete(array $segments): void {
+        $collection = $segments[0];
+        $data = $this->data;
+
+        if(!isset($data[$collection])) {
+            http_response_code(404);
+            echo json_encode(["error" => "Collection '{$collection}' not found"], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $dataToDelete = $data[$segments[0]];
+        $withDelete;
+
+        for($i = 1; $i < count($segments); $i += 2) {
+            $key = $segments[$i];
+            $value = $segments[$i + 1];
+
+            $hasKey = array_reduce($dataToDelete, function ($carry, $item) use ($key) {
+                return $carry || array_key_exists($key, $item);
+            });
+
+            if(!$hasKey) {
+                http_response_code(400);
+                echo json_encode(["error", "Key '{$key}' not found in any item of collection '{$segments[0]}'"], JSON_PRETTY_PRINT);
+                return;
+            }
+            
+            $item = array_filter($dataToDelete, function ($item) use ($key, $value) {
+                return isset($item[$key]) && (string)$item[$key] === (string)$value;
+            });
+            $itemKey = array_keys($item);
+            $withDelete = array_splice($dataToDelete, $itemKey[0], 1);
+            $data[$segments[0]] = $dataToDelete;
+            $this->data = $data;
+            file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
+        }
+
+        http_response_code(201);
+        echo json_encode([$item, 'message' => 'Was deleted'], JSON_PRETTY_PRINT);
         return;
     }
 
