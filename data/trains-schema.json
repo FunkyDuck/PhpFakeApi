@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Train",
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "minimum": 1 },
+    "name": { "type": "string" },
+    "country": { "type": "string" },
+    "type": { "type": "string" },
+    "manufacturer": { "type": "string" },
+    "max_speed": { "type": "integer", "minimum": 0 },
+    "service_start": { "type": "integer", "minimum": 1800 },
+    "electric": { "type": "boolean" },
+    "image": { "type": "string" }
+  },
+  "required": [
+    "name",
+    "country",
+    "type",
+    "manufacturer",
+    "max_speed",
+    "service_start",
+    "electric",
+    "image"
+  ]
+}

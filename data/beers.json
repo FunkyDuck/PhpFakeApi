@@ -1,0 +1,224 @@
+[
+    {
+        "id": 1,
+        "name": "Chimay Bleue",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 9,
+        "ibu": 35,
+        "formats": [
+            "33cl",
+            "75cl",
+            "1.5L"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/3\/3a\/Chimay_bleu.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Chimay Rouge",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 7,
+        "ibu": 25,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/5\/5f\/Chimay_Rouge.JPG"
+    },
+    {
+        "id": 3,
+        "name": "Chimay Blanche (Cinq Cents)",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 8,
+        "ibu": 30,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/a\/a4\/ChimayBlanche.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Chimay Dor\u00e9e",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 4.8,
+        "ibu": 15,
+        "formats": [
+            "33cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/7\/78\/ChimayDor%C3%A9e.JPG"
+    },
+    {
+        "id": 5,
+        "name": "Westmalle Tripel",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 9.5,
+        "ibu": 30,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/2\/28\/Westmalle_tripel.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Orval",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 6.2,
+        "ibu": 28,
+        "formats": [
+            "33cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/4\/4d\/Orval_bottle.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Rochefort 10",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 11.3,
+        "ibu": 40,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/e\/e5\/Rochefort10.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Duvel",
+        "country": "Belgique",
+        "type": "Blonde forte",
+        "alcohol": 8.5,
+        "ibu": 25,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/3\/32\/Duvel_glass.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Hoegaarden Grand Cru",
+        "country": "Belgique",
+        "type": "Witbier",
+        "alcohol": 8.5,
+        "ibu": 20,
+        "formats": [
+            "33cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/0\/0b\/Hoegaarden_glass.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Tripel Karmeliet",
+        "country": "Belgique",
+        "type": "Tripel",
+        "alcohol": 8.4,
+        "ibu": 28,
+        "formats": [
+            "33cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/1\/1a\/Tripel_Karmeliet_glass.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Guinness Extra Stout",
+        "country": "Irlande",
+        "type": "Stout",
+        "alcohol": 5.6,
+        "ibu": 45,
+        "formats": [
+            "33cl",
+            "50cl",
+            "440ml can"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/4\/4b\/Guinness_Extra_Stout.JPG"
+    },
+    {
+        "id": 12,
+        "name": "Sierra Nevada Pale Ale",
+        "country": "\u00c9tats-Unis",
+        "type": "Pale Ale",
+        "alcohol": 5.6,
+        "ibu": 38,
+        "formats": [
+            "35.5cl",
+            "50cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/5\/50\/Sierra_Nevada_Pale_Ale_Bottle.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Heineken",
+        "country": "country\u2011Bas",
+        "type": "Lager",
+        "alcohol": 5,
+        "ibu": 20,
+        "formats": [
+            "33cl",
+            "50cl",
+            "500ml can"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/0\/02\/Heineken_bottle.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Chimay 150 (Verte)",
+        "country": "Belgique",
+        "type": "Trappiste",
+        "alcohol": 10,
+        "ibu": 35,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/2\/2a\/Chimay_Verte_150.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Affligem Blond",
+        "country": "Belgique",
+        "type": "Abbaye",
+        "alcohol": 6.8,
+        "ibu": 25,
+        "formats": [
+            "33cl",
+            "50cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/3\/3e\/Affligem_blond_bottle.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Delirium Tremens",
+        "country": "Belgique",
+        "type": "Belgian Strong Ale",
+        "alcohol": 8.5,
+        "ibu": 37,
+        "formats": [
+            "33cl",
+            "75cl"
+        ],
+        "image": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/9\/9b\/Delirium_logo.jpg"
+    },
+    {
+        "name": "Jupiler",
+        "country": "Belgique",
+        "type": "Pils",
+        "alcohol": 5.2,
+        "ibu": 25,
+        "formats": [
+            "25 cl",
+            "33cl",
+            "50 cl",
+            "75cl"
+        ],
+        "image": "https:\/\/pintplease.s3.eu-west-1.amazonaws.com\/post\/original\/post_7151964-221641448.jpg",
+        "id": 17
+    }
+]

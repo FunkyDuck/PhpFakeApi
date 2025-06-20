@@ -2,5 +2,5 @@
 namespace App;
 
 class Constants {
-    public const VERSION = '2.1.1';
+    public const VERSION = '2.2.1';
 }

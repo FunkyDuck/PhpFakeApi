@@ -2,15 +2,18 @@
 namespace Database;
 
 require_once "lib_jwt.php";
+require_once "lib_validator.php";
 
 use Token\JWT as Jwt;
+use JsonValidator\JsonValidator as Validator;
 
 class JsonDb {
     private string $file;
     private array $data = [];
     // private $token = new Jwt();
 
-    public function __construct(string $filepath = __DIR__ . "/../../data/db.json") {
+    public function __construct(string $collection) {
+        $filepath = __DIR__ . "/../../data/{$collection}.json";
         $this->file = $filepath;
 
         if(file_exists($this->file)) {
@@ -18,126 +21,143 @@ class JsonDb {
             $this->data = json_decode($json, true) ?? [];
         }
         else {
-            $this->data = [];
+            throw new \RuntimeException("Collection [{$collection}] not found");
         }
     }
 
-    function handleGet(array $segments): void {
-        $data = $this->data;
-
-        if(!array_key_exists($segments[0], $data)) {
-            http_response_code(404);
-            echo json_encode(["error" => "Collection {$segments[0]} not found"], JSON_PRETTY_PRINT);
-            return;
-        }
-
-        if(count($segments) === 1) {
-            echo json_encode([$segments[0] => $data[$segments[0]]], JSON_PRETTY_PRINT);
-            return;
-        }
-
-        if((count($segments) - 1) % 2 !== 0) {
+    function handleGet(string $collection, ?string $resourceId = null): void {
+        if(empty($collection)) {
             http_response_code(400);
-            echo json_encode(["error" => "Invalid filter format : filters must be in key/value pairs"], JSON_PRETTY_PRINT);
+            echo json_encode(["error" => "No collection specified"], JSON_PRETTY_PRINT);
             return;
         }
 
-        $data = $data[$segments[0]];
-
-        for($i = 1; $i < count($segments); $i += 2) {
-            $key = $segments[$i];
-            $value = $segments[$i + 1];
-
-            $hasKey = array_reduce($data, function ($carry, $item) use ($key) {
-                return $carry || array_key_exists($key, $item);
-            });
-
-            if(!$hasKey) {
-                http_response_code(400);
-                echo json_encode(["error", "Key '{$key}' not found in any item of collection '{$segments[0]}'"], JSON_PRETTY_PRINT);
-                return;
-            }
-            
-            $data = array_filter($data, function ($item) use ($key, $value) {
-                return isset($item[$key]) && (string)$item[$key] === (string)$value;
-            });
+        if(!$resourceId) {
+            echo json_encode(array_values($this->data), JSON_PRETTY_PRINT);
+            return;
         }
 
-        echo json_encode(array_values($data), JSON_PRETTY_PRINT);
-        return;
+        $data = null;
+
+        foreach ($this->data as $key => $value) {
+            if($value['id'] == $resourceId) {
+                $data = $value;
+            }
+        }
+
+        if(!$data) {
+            http_response_code(404);
+            echo json_encode(["error" => "Item id [{$resourceId}] not found"], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        echo json_encode($data, JSON_PRETTY_PRINT);
     }
 
-    function handlePost(array $segments): void {
-        if(count($segments) !== 1) {
+    function handlePost(string $collection, ?string $resourceId): void {
+        if(!$collection || $resourceId) {
             http_response_code(400);
             echo json_encode(["error" => "POST must target a single collection"], JSON_PRETTY_PRINT);
             return;
         }
 
-        $collection = $segments[0];
         $data = $this->data;
-
-        if(!isset($data[$collection])) {
-            http_response_code(404);
-            echo json_encode(["error" => "Collection '{$collection}' not found"], JSON_PRETTY_PRINT);
-            return;
-        }
-
+        
         $rawInput = file_get_contents("php://input");
         $input = json_decode($rawInput, true);
 
-        if(!is_array($input)) {
-            http_response_code(400);
-            echo json_encode(["error" => "Invalid JSON body"], JSON_PRETTY_PRINT);
+        $schemaPath = __DIR__ . "/../../data/{$collection}-schema.json";
+        if(!file_exists($schemaPath)) {
+            echo json_encode(["error" => "Schema file not found for '{$collection}'"], JSON_PRETTY_PRINT);
+            http_response_code(500);
             return;
         }
 
-        $ids = array_column($data[$collection], 'id');
-        $newId = empty($ids) ? 1 : max($ids) + 1;
-        $input["id"] = $newId;
+        $schema = json_decode(file_get_contents($schemaPath), true);
+        if(!$schema) {
+            echo json_encode(["error" => "Invalid schema file"], JSON_PRETTY_PRINT);
+            http_response_code(500);
+            return;
+        }
 
-        $data[$collection][] = $input;
-        $this->data = $data;
+        if(!$input || !is_array($input)) {
+            http_response_code(400);
+            echo json_encode(["error" => "Invalid or missing JSON body", "input" => $input], JSON_PRETTY_PRINT);
+            return;
+        }
 
-        file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
+        $errors = Validator::validate($input, $schema);
+
+        if(!empty($errors)) {
+            http_response_code(400);
+            echo json_encode(["error" => "validation failed", "details" => $errors], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $ids = array_column($this->data, "id");
+        $input["id"] = empty($ids) ? 1 : max($ids) + 1;
+        $this->data[] = $input;
+        file_put_contents($this->file, json_encode($this->data, JSON_PRETTY_PRINT));
 
         http_response_code(201);
         echo json_encode($input, JSON_PRETTY_PRINT);
         return;
     }
 
-    function handlePut(array $segments): void {
-        if(count($segments) !== 1) {
+    function handlePut(string $collection, ?string $resourceId): void {
+        if(!$collection) {
             http_response_code(400);
-            echo json_encode(["error" => "PUT must target a single collection"], JSON_PRETTY_PRINT);
+            echo json_encode(["error" => "PUT requests must specify a collection"], JSON_PRETTY_PRINT);
             return;
         }
 
-        $collection = $segments[0];
+        if(!$resourceId) {
+            http_response_code(400);
+            echo json_encode(["error" => "PUT requests must specify a resource ID"], JSON_PRETTY_PRINT);
+            return;
+        }
+
         $data = $this->data;
-
-        if(!isset($data[$collection])) {
-            http_response_code(404);
-            echo json_encode(["error" => "Collection '{$collection}' not found"], JSON_PRETTY_PRINT);
-            return;
-        }
-
+        
         $rawInput = file_get_contents("php://input");
         $input = json_decode($rawInput, true);
 
-        if(!is_array($input)) {
-            http_response_code(400);
-            echo json_encode(["error" => "Invalid JSON body"], JSON_PRETTY_PRINT);
+        $schemaPath = __DIR__ . "/../../data/{$collection}-schema.json";
+        if(!file_exists($schemaPath)) {
+            echo json_encode(["error" => "Schema file not found for '{$collection}'"], JSON_PRETTY_PRINT);
+            http_response_code(500);
             return;
         }
 
-        error_log(json_encode($input));
-        $updated = null;
+        $schema = json_decode(file_get_contents($schemaPath), true);
+        if(!$schema) {
+            echo json_encode(["error" => "Invalid schema file"], JSON_PRETTY_PRINT);
+            http_response_code(500);
+            return;
+        }
 
-        foreach ($data[$collection] as $idx => $item) {
-            if((int)$item['id'] === (int)$input['id']) {
+        if(!$input || !is_array($input)) {
+            http_response_code(400);
+            echo json_encode(["error" => "Invalid or missing JSON body", "input" => $input], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $errors = Validator::validate($input, $schema);
+
+        if(!empty($errors)) {
+            http_response_code(400);
+            echo json_encode(["error" => "validation failed", "details" => $errors], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        if($input['id']) {
+            unset($input['id']);
+        }
+
+        foreach ($data as $resource => $item) {
+            if($item["id"] == $resourceId) {
                 $updated = array_replace($item, $input);
-                $data[$collection][$idx] = $updated;
+                $data[$resource] = $updated;
                 $this->data = $data;
                 file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
             }
@@ -147,44 +167,34 @@ class JsonDb {
         return;
     }
 
-    function handleDelete(array $segments): void {
-        $collection = $segments[0];
-        $data = $this->data;
-
-        if(!isset($data[$collection])) {
-            http_response_code(404);
-            echo json_encode(["error" => "Collection '{$collection}' not found"], JSON_PRETTY_PRINT);
+    function handleDelete(string $collection, ?string $resourceId): void {
+        if(!$collection) {
+            http_response_code(400);
+            echo json_encode(["error" => "DELETE requests must specify a collection"], JSON_PRETTY_PRINT);
             return;
         }
 
-        $dataToDelete = $data[$segments[0]];
-        $withDelete;
-
-        for($i = 1; $i < count($segments); $i += 2) {
-            $key = $segments[$i];
-            $value = $segments[$i + 1];
-
-            $hasKey = array_reduce($dataToDelete, function ($carry, $item) use ($key) {
-                return $carry || array_key_exists($key, $item);
-            });
-
-            if(!$hasKey) {
-                http_response_code(400);
-                echo json_encode(["error", "Key '{$key}' not found in any item of collection '{$segments[0]}'"], JSON_PRETTY_PRINT);
-                return;
-            }
-            
-            $item = array_filter($dataToDelete, function ($item) use ($key, $value) {
-                return isset($item[$key]) && (string)$item[$key] === (string)$value;
-            });
-            $itemKey = array_keys($item);
-            $withDelete = array_splice($dataToDelete, $itemKey[0], 1);
-            $data[$segments[0]] = $dataToDelete;
-            $this->data = $data;
-            file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
+        if(!$resourceId) {
+            http_response_code(400);
+            echo json_encode(["error" => "DELETE requests must specify a resource ID"], JSON_PRETTY_PRINT);
+            return;
         }
 
-        http_response_code(204);
+        $data = $this->data;
+
+        foreach ($data as $resource => $item) {
+            if($item['id'] == $resourceId) {
+                unset($data[$resource]);
+                $this->data = $data;
+                file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
+
+                http_response_code(204);
+                return;
+            }
+        }
+        
+        http_response_code(404);
+        echo json_encode(["error" => "Item with id '{$resourceId}' not found"], JSON_PRETTY_PRINT);
         return;
     }
 

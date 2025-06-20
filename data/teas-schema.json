@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tea",
+  "type": "object",
+  "required": ["name", "origin", "category", "preparation", "taste"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the tea"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the tea"
+    },
+    "origin": {
+      "type": "string",
+      "description": "Country or region where the tea originates"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Green", "Black", "White", "Oolong", "Pu-erh", "Herbal", "Rooibos", "Yellow"],
+      "description": "Type of tea"
+    },
+    "preparation": {
+      "type": "string",
+      "description": "Typical method of preparation"
+    },
+    "taste": {
+      "type": "string",
+      "description": "Taste profile"
+    },
+    "caffeine_mg": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Approximate caffeine content in milligrams per cup"
+    },
+    "brew_time_minutes": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Recommended brewing time in minutes"
+    },
+    "temperature_celsius": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Recommended water temperature in Celsius degrees"
+    },
+    "image": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL of an image representing the tea"
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Additional notes or comments"
+    }
+  }
+}
