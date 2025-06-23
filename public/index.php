@@ -7,24 +7,16 @@ require_once __DIR__ . "/../src/Constants.php";
 use Database\JsonDb as Db;
 use App\Constants;
 
-// header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-// header("Access-Control-Allow-Headers: Content-Type");
-// header('Content-Type: application/json');
-
-// if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-//     http_response_code(200);
-//     exit;
-// }
-
 error_log("PHP Fake API version " . Constants::VERSION . "\nCreated by Ginji@FunkyDuck.");
     
 $method = $_SERVER["REQUEST_METHOD"];
 
-// if($method == "OPTIONS") {
-//     http_response_code(204);
-//     exit;
-// }
+$isBrowser = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'text/html') != false;
+
+if(!$isBrowser) {
+    require_once __DIR__ . "../index.php";
+    exit;
+}
 
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");
 $segments = explode("/", $uri);
