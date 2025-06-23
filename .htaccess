@@ -1,4 +1,4 @@
-# Désactiver index et Multiviews si besoin
+<!-- # Désactiver index et Multiviews si besoin
 # Options -Indexes
 # Options -Multiviews
 # Options +FollowSymlinks
@@ -29,4 +29,4 @@ ErrorDocument 404 /404
 <IfModule mod_rewrite.c>
     RewriteCond %{REQUEST_METHOD} OPTIONS
     RewriteRule ^(.*)$ - [R=204,L]
-</IfModule>
+</IfModule> -->
