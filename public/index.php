@@ -11,13 +11,6 @@ error_log("PHP Fake API version " . Constants::VERSION . "\nCreated by Ginji@Fun
     
 $method = $_SERVER["REQUEST_METHOD"];
 
-$isBrowser = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'text/html') != false;
-
-if(!$isBrowser) {
-    require_once __DIR__ . "../index.php";
-    exit;
-}
-
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");
 $segments = explode("/", $uri);
 
